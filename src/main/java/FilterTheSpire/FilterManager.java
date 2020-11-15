@@ -3,6 +3,7 @@ package FilterTheSpire;
 import FilterTheSpire.filters.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,11 +14,11 @@ public class FilterManager {
     private static FilterManager getInstance() { return FilterManagerHolder.INSTANCE; }
     public static void initialize() { getInstance(); }
 
-    private static HashMap<String, AbstractFilter> filters = new HashMap<>();
+    private static ArrayList<AbstractFilter> filters = new ArrayList<>();
 
     // Returns true if all filters pass for the given seed
     public static boolean validateFilters(long seed) {
-        return filters.values().stream().allMatch(v -> v.isSeedValid(seed));
+        return filters.stream().allMatch(v -> v.isSeedValid(seed));
     }
 
     public static boolean hasFilters() {
@@ -26,33 +27,33 @@ public class FilterManager {
 
     // --------------------------------------------------------------------------------
 
-    public static void setORValidator(String validatorName, ArrayList<AbstractFilter> filtersToMatch) {
+    public static void setORValidator(ArrayList<AbstractFilter> filtersToMatch) {
         OrFilter filter = new OrFilter(filtersToMatch);
-        filters.put(validatorName, filter);
+        filters.add(filter);
     }
 
-    public static void setValidatorFromString(String validatorName, AbstractFilter filter) {
-        filters.put(validatorName, filter);
+    public static void AddFilter(AbstractFilter filter) {
+        filters.add(filter);
     }
 
     // --------------------------------------------------------------------------------
 
     public static void setFirstCombatIs(String enemyName) {
         NthCombatFilter filter = new NthCombatFilter(enemyName);
-        setValidatorFromString("firstCombatIs", filter);
+        filters.add(filter);
     }
 
 //    public static void setFirstCombatsAre(ArrayList<String> enemyNames) {
 //        ArrayList<String> combatOrder = enemyNames;
 //        NthCombatFilter filter = new NthCombatFilter(combatOrder);
-//        setValidatorFromString("firstCombatsAre", filter);
+//        filters.add(filter);
 //    }
 
     // --------------------------------------------------------------------------------
 
     public static void setBossSwapIs(String relic) {
         NthBossRelicFilter filter = new NthBossRelicFilter(relic);
-        setValidatorFromString("bossSwapIs", filter);
+        filters.add(filter);
     }
 
     public static void setBossSwapFiltersFromValidList(ArrayList<String> relicIDs) {
@@ -61,14 +62,14 @@ public class FilterManager {
             NthBossRelicFilter filter = new NthBossRelicFilter(relicID);
             filtersToCheck.add(filter);
         }
-        setORValidator("firstBossIsOneOf", filtersToCheck);
+        setORValidator(filtersToCheck);
     }
 
     // --------------------------------------------------------------------------------
 
     public static void setFirstBossIs(String bossName) {
         BossFilter filter = new BossFilter(bossName);
-        filters.put("firstBoss", filter);
+        filters.add(filter);
     }
 
     public static void setFirstBossIsOneOf(ArrayList<String> bossNames) {
@@ -77,14 +78,14 @@ public class FilterManager {
             BossFilter filter = new BossFilter(bossName);
             filtersToCheck.add(filter);
         }
-        setORValidator("firstBossIsOneOf", filtersToCheck);
+        setORValidator(filtersToCheck);
     }
 
     // --------------------------------------------------------------------------------
 
     public static void setFirstEliteIs(String eliteName) {
         NthEliteFilter filter = new NthEliteFilter(eliteName);
-        filters.put("firstElite", filter);
+        filters.add(filter);
     }
 
     public static void setFirstEliteIsOneOf(ArrayList<String> eliteNames) {
@@ -93,7 +94,7 @@ public class FilterManager {
             NthEliteFilter filter = new NthEliteFilter(eliteName);
             filtersToCheck.add(filter);
         }
-        setORValidator("firstEliteIsOneOf", filtersToCheck);
+        setORValidator(filtersToCheck);
     }
 
     // --------------------------------------------------------------------------------

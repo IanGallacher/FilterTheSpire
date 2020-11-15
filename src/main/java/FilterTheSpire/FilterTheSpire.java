@@ -1,6 +1,7 @@
 package FilterTheSpire;
 
 import FilterTheSpire.filters.NthColorlessRareCardFilter;
+import FilterTheSpire.filters.NthCombatFilter;
 import FilterTheSpire.filters.ThirdBlessingFilter;
 import FilterTheSpire.multithreading.SeedSearcher;
 import FilterTheSpire.utils.Config;
@@ -46,8 +47,10 @@ public class FilterTheSpire implements PostInitializeSubscriber, PostDungeonInit
         FilterManager.setFirstBossIs("Slime Boss");
         FilterManager.setFirstEliteIs("3 Sentries");
         FilterManager.setFirstCombatIs("2 Louse");
-        FilterManager.setValidatorFromString("thirdBlessingIs", new ThirdBlessingFilter());
-        FilterManager.setValidatorFromString("colorlessRareIs", new NthColorlessRareCardFilter("The Bomb", 0));
+        FilterManager.AddFilter(new NthCombatFilter("2 Louse", 0));
+        FilterManager.AddFilter(new NthCombatFilter("Small Slimes", 1));
+        FilterManager.AddFilter(new ThirdBlessingFilter());
+        FilterManager.AddFilter(new NthColorlessRareCardFilter("The Bomb", 0));
 
 
 //        FilterManager.setBossSwapIs("Pandora's Box");
