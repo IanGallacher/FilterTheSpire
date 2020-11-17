@@ -8,7 +8,7 @@ public class NthBossRelicFilter extends AbstractFilter{
 
     public NthBossRelicFilter(String bossRelicName) {
         this.bossRelicName = bossRelicName;
-        this.encounterIndex = 0; // Get the first elite encounter if no index is specified.
+        this.encounterIndex = 0; // Get the first boss relic if no index is specified.
     }
 
     public NthBossRelicFilter(String bossRelicName, int encounterIndex) {
@@ -17,6 +17,6 @@ public class NthBossRelicFilter extends AbstractFilter{
     }
 
     public boolean isSeedValid(long seed) {
-        return new RelicRngSimulator(seed).nthBossSwap(encounterIndex).equals(bossRelicName);
+        return new RelicRngSimulator(seed).nthBossRelic(encounterIndex).equals(bossRelicName);
     }
 }

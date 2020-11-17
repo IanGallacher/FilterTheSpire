@@ -1,5 +1,6 @@
 package FilterTheSpire.simulators;
 
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.SeedHelper;
 import com.megacrit.cardcrawl.monsters.MonsterInfo;
 import com.megacrit.cardcrawl.random.Random;
@@ -142,6 +143,21 @@ public class MonsterRngSimulator {
                 break;
             }
         }
+        return retVal;
+    }
+
+    // Warning: This function does not work, as calculating HP needs the floor number.
+    // Different paths will have different floor numbers for a given enemy.
+    public ArrayList<Integer> nthCombatHp(int n) {
+        AbstractDungeon.monsterHpRng = new Random(seed); // Needs to be changed to seed + floor number
+        Random monsterHpRng = AbstractDungeon.monsterHpRng.copy();
+        ArrayList<Integer> retVal = new ArrayList<>();
+        for (int i = 0; i < n; ++i) {
+            monsterHpRng.random(0,1);
+        }
+        retVal.add(monsterHpRng.random(50, 56));
+        AbstractDungeon.monsterHpRng = monsterHpRng;
+
         return retVal;
     }
 

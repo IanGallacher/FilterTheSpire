@@ -4,19 +4,19 @@ import FilterTheSpire.simulators.CardRngSimulator;
 
 public class NthColorlessRareCardFilter extends AbstractFilter{
     private String cardName;
-    private int encounterNumber;
+    private int encounterIndex;
 
     public NthColorlessRareCardFilter(String cardName) {
         this.cardName = cardName;
-        this.encounterNumber = 1; // Get the first card if no index is specified.
+        this.encounterIndex = 1; // Get the first card if no index is specified.
     }
 
-    public NthColorlessRareCardFilter(String cardName, int encounterNumber) {
+    public NthColorlessRareCardFilter(String cardName, int encounterIndex) {
         this.cardName = cardName;
-        this.encounterNumber = encounterNumber;
+        this.encounterIndex = encounterIndex;
     }
 
     public boolean isSeedValid(long seed) {
-        return new CardRngSimulator(seed).nthColorlessRareCard(encounterNumber).equals(cardName);
+        return new CardRngSimulator(seed).nthColorlessRareCard(encounterIndex).equals(cardName);
     }
 }

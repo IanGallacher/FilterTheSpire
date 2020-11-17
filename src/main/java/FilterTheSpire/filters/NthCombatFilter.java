@@ -4,19 +4,19 @@ import FilterTheSpire.simulators.MonsterRngSimulator;
 
 public class NthCombatFilter extends AbstractFilter {
     private String enemyName;
-    private int encounterNumber;
+    private int encounterIndex;
 
     public NthCombatFilter(String enemyName) {
         this.enemyName = enemyName;
-        this.encounterNumber = 0; // Get the first combat if no index is specified.
+        this.encounterIndex = 0; // Get the first combat if no index is specified.
     }
 
-    public NthCombatFilter(String enemyName, int encounterNumber) {
+    public NthCombatFilter(String enemyName, int encounterIndex) {
         this.enemyName = enemyName;
-        this.encounterNumber = encounterNumber;
+        this.encounterIndex = encounterIndex;
     }
 
     public boolean isSeedValid(long seed) {
-        return new MonsterRngSimulator(seed).nthCombat(encounterNumber).equals(enemyName);
+        return new MonsterRngSimulator(seed).nthCombat(encounterIndex).equals(enemyName);
     }
 }

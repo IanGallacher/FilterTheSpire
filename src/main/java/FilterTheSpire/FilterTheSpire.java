@@ -1,8 +1,6 @@
 package FilterTheSpire;
 
-import FilterTheSpire.filters.NthColorlessRareCardFilter;
-import FilterTheSpire.filters.NthCombatFilter;
-import FilterTheSpire.filters.ThirdBlessingFilter;
+import FilterTheSpire.filters.*;
 import FilterTheSpire.multithreading.SeedSearcher;
 import FilterTheSpire.utils.Config;
 import FilterTheSpire.utils.ExtraColors;
@@ -22,7 +20,10 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 
 @SpireInitializer
-public class FilterTheSpire implements PostInitializeSubscriber, PostDungeonInitializeSubscriber, RenderSubscriber {
+public class FilterTheSpire implements
+        PostInitializeSubscriber,
+        PostDungeonInitializeSubscriber,
+        RenderSubscriber {
     private static final String version = "0.1.3";
     public static void initialize() { new FilterTheSpire(); }
 
@@ -44,9 +45,10 @@ public class FilterTheSpire implements PostInitializeSubscriber, PostDungeonInit
         config = new Config();
         Config.setupConfigMenu();
 
-        FilterManager.setFirstBossIs("Slime Boss");
-        FilterManager.setFirstEliteIs("3 Sentries");
-        FilterManager.setFirstCombatIs("2 Louse");
+        FilterManager.AddFilter(new BossFilter("Slime Boss"));
+//        FilterManager.AddFilter(new NthRelicFilter("Art of War", 0));
+        FilterManager.AddFilter(new NthRelicFilter("StoneCalendar", 0));
+        FilterManager.AddFilter(new NthEliteFilter("3 Sentries", 0));
         FilterManager.AddFilter(new NthCombatFilter("2 Louse", 0));
         FilterManager.AddFilter(new NthCombatFilter("Small Slimes", 1));
         FilterManager.AddFilter(new ThirdBlessingFilter());
